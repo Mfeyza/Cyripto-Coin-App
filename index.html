@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Bitcoin Cyripto</title>
+  </head>
+  <body style="font-family: 'Playpen Sans', cursive;background-image: radial-gradient( circle 590px at 8.2% 13.8%,  rgba(18,35,60,1) 0%, #bbb 90% );">
+    <nav class=" navbar   d-flex" style="background-color: transparent;">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <img src="200w-unscreen.gif" alt="Bootstrap" width="100" height="100" />
+        </a>
+        <form class="d-flex me-5" role="search">
+          <input
+            id="searchInput"
+            class="form-control me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+            style="width:25rem; background-color: transparent; border-top: none;border-left: none;border-right: none; border-bottom: 3px solid rgb(112, 143, 179);"
+          />
+          <button id="search-button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" type="button" style="background-image: linear-gradient( 91deg,  rgba(72,154,78,1) 5.2%, rgba(251,206,70,1) 95.9% ); border: none; ">Search</button>
+        </form>
+        <button
+        class="btn btn-primary"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasRight"
+        aria-controls="offcanvasRight"
+      >
+        Saved Cyriptos
+      </button>         
+     
+
+      <div
+        class="offcanvas offcanvas-end"
+        tabindex="-1"
+        id="offcanvasRight"
+        aria-labelledby="offcanvasRightLabel"
+        style="background-color: transparent; border: none; background-image: url(200w-unscreen.gif); background-repeat: no-repeat; background-position: center;"      >
+        <div class="offcanvas-header off ">
+          <h5 class="offcanvas-title" id="offcanvasRightLabel" style="color: rgb(156, 156, 200);">
+            Saved Cyriptos
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+            
+          ></button>
+        </div>
+        <div class="offcanvas-body text-center">
+          <ul class="list-group">
+            <li class="list-group-item" style="background-image: linear-gradient( 94.3deg,  rgba(26,33,64,1) 10.9%, rgba(81,84,115,1) 87.1% )">Add?</li>
+     
+          </ul>
+        </div>
+        <div class="text-center text-white p-3" style="background-color: transparent">
+          © 2023 Copyright:
+          <a class="text-white" >MFY</a>
+        </div>
+      </div>
+
+
+
+        <!-- Modal -->
+                     
+      
+                      <!-- Modal -->
+                      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body d-flex flex-row gap-5 justify-content-around">
+                              <img src="" alt="">
+                              <p></p>
+                              <p></p>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              <button type="button" id="saveBtn" >Kaydet</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+        <!-- Modal -->
+      </div>
+    </nav>
+
+    <div  class="container d-flex flex-column "  >
+      <table  class="table">
+        <thead style="font-size: 20px;" >
+          <tr  style="background-color: transparent;">
+            <th style="background-color: transparent;"   scope="col">Name</th>
+            <th style="background-color: transparent;"  scope="col">Rank</th>
+            <th style="background-color: transparent;" scope="col">Symbol</th>
+            <th style="background-color: transparent;"  scope="col">Icon</th>
+            <th style="background-color: transparent;"  scope="col">Change</th>
+            <th style="background-color: transparent;"  scope="col">Coin Detail</th>
+          </tr>
+        </thead>
+
+        <tbody class="tbody">
+        
+        </tbody>
+      </table>
+      <!--  CANVAS -->
+ 
+      <!-- CANVAS -->
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
