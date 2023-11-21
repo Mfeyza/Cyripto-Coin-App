@@ -72,6 +72,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   handleApiRequests();
 
+  /* -------------------------------------------------------------------------- */
+  /*                                    MODAL                                   */
+  /* -------------------------------------------------------------------------- */
+
   const showModal = (coins) => {
     coins.forEach((element) => {
       const { symbol, name, color, coinrankingUrl, iconUrl, change } = element;
@@ -123,7 +127,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const modalheader = document.querySelector(".modal-header");
   searchBtn.addEventListener("click", () => {
-    if (searchInput.value !== "") {
+  const inputValue = searchInput.value.trim();
+    if (inputValue !== "") {
       showModal(getCoins);
     } else {
       modalheader.innerHTML = `
@@ -131,6 +136,10 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     }
   });
+
+  /* -------------------------------------------------------------------------- */
+  /*                                    SAVE                                    */
+  /* -------------------------------------------------------------------------- */
 
   saveBtn.addEventListener("click", () => {
     let localCoins = localStorage.getItem("coins");
@@ -145,6 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
     showlocal(setLocalCoins);
 
   });
+  /* --------------------------------- CANVAS --------------------------------- */
 
   function showlocal(setLocalCoins) {
     const canvas = document.querySelector(".offcanvas-body ul.list-group");
@@ -163,3 +173,17 @@ document.addEventListener("DOMContentLoaded", () => {
     
   }
 });
+window.onload = function () {
+ 
+
+  const localCoins = localStorage.getItem("coins");
+  const parsedCoins = localCoins ? JSON.parse(localCoins) : [];
+
+  parsedCoins.forEach((element) => {
+    const { name } = element;
+    let li = document.createElement("li");
+    li.innerHTML = `
+      <li class="list-group-item" style="border:none;border-radius:10px; background-image: linear-gradient(94.3deg, rgba(26,33,64,1) 10.9%, rgba(81,84,115,1) 87.1%);">${name}</li>`;
+    canvas.appendChild(li);
+  });
+};
