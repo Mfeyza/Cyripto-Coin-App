@@ -174,10 +174,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 window.onload = function () {
- 
-
+  const canvas = document.querySelector(".offcanvas-body ul.list-group");
   const localCoins = localStorage.getItem("coins");
   const parsedCoins = localCoins ? JSON.parse(localCoins) : [];
+  parsedCoins.reverse();
 
   parsedCoins.forEach((element) => {
     const { name } = element;
