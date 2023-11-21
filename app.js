@@ -46,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   function showCoins(data) {
+    
     data.forEach((element) => {
       const { symbol, name, color, coinrankingUrl, iconUrl, rank, change } = element;
       const tr = document.createElement("tr");
@@ -127,12 +128,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const modalheader = document.querySelector(".modal-header");
   searchBtn.addEventListener("click", () => {
-  const inputValue = searchInput.value.trim();
-    if (inputValue !== "") {
+    const inputValue = searchInput.value.trim();
+    const foundCoin = getCoins.find((coin) => coin.name.toLowerCase() === inputValue.toLowerCase());
+  
+    if (inputValue !== "" && foundCoin) {
       showModal(getCoins);
+      searchInput.value = "";
     } else {
       modalheader.innerHTML = `
-        <p class=" text-center" style="color:darkred"> Lütfen geçerli bir değer giriniz</p>
+        <p class="text-center" style="color:darkred">
+          ${foundCoin ? "Lütfen geçerli bir değer giriniz" : "Girilen coin bulunamadı"}
+        </p>
       `;
     }
   });
