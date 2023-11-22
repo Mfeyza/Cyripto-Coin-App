@@ -1,7 +1,3 @@
-/* -------------------------------------------------------------------------- */
-/*                                  DEĞİŞKENS                                 */
-/* -------------------------------------------------------------------------- */
-
 document.addEventListener("DOMContentLoaded", () => {
   const tBody = document.querySelector("tBody");
   const searchBtn = document.getElementById("search-button");
@@ -15,10 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let getCoins = [];
   let setLocalCoins = [];
 
-  /* -------------------------------------------------------------------------- */
-  /*                                  FETCİHNGG                                 */
-  /* -------------------------------------------------------------------------- */
-
   const getCripto = async () => {
     try {
       const response = await fetch(`https://api.coinranking.com/v2/coins`);
@@ -28,25 +20,25 @@ document.addEventListener("DOMContentLoaded", () => {
       const data = await response.json();
       console.log(data.data.coins);
 
-      showCoins(data.data.coins);
       getCoins = data.data.coins;
+      showCoins(getCoins);
     } catch (error) {
+      console.error(error);
+
       if (error.status === 429) {
         await new Promise((resolve) => setTimeout(resolve, 5000));
+        await getCripto(); // Hata durumunda tekrar deneme
+      } else {
+        // Hata durumunda kullanıcıya bilgi verilebilir
+        modalheader.innerHTML = `
+          <p class="text-center" style="color:darkred">
+            Bir hata oluştu. Lütfen tekrar deneyin.
+          </p>`;
       }
     }
   };
 
-  const delayBetweenRequests = 1000;
-  const handleApiRequests = async () => {
-    for (let i = 0; i < 3; i++) {
-      await getCripto();
-      await new Promise((resolve) => setTimeout(resolve, delayBetweenRequests));
-    }
-  };
-
   function showCoins(data) {
-    
     data.forEach((element) => {
       const { symbol, name, color, coinrankingUrl, iconUrl, rank, change } = element;
       const tr = document.createElement("tr");
@@ -71,11 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  handleApiRequests();
-
-  /* -------------------------------------------------------------------------- */
-  /*                                    MODAL                                   */
-  /* -------------------------------------------------------------------------- */
+  getCripto(); // Sadece getCripto fonksiyonunu çağır
 
   const showModal = (coins) => {
     coins.forEach((element) => {
@@ -100,7 +88,6 @@ document.addEventListener("DOMContentLoaded", () => {
               </a>
             </div>
             <div class="d-flex justify-content-center" >
-            
               <button style="background-color: rgb(207, 193, 68); border:none; border-radius:10px;width:80px ; height:40px ;" type="button " id="saveBtn" aria-label="close" data-bs-dismiss="modal" >Kaydet</button>
             </div>
           </div>`;
@@ -131,21 +118,26 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputValue = searchInput.value.trim();
     const foundCoin = getCoins.find((coin) => coin.name.toLowerCase() === inputValue.toLowerCase());
   
-    if (inputValue !== "" && foundCoin) {
-      showModal(getCoins);
-      searchInput.value = "";
+    modalheader.innerHTML = ""; // Modal header içeriğini temizle
+
+    if (inputValue !== "") {
+      if (foundCoin){
+        setLocalCoins=[];
+        showModal([foundCoin]);
+        searchInput.value = "";
+      } else {
+        modalheader.innerHTML = `
+          <p class="text-center" style="color:darkred">
+            Girilen coin bulunamadı
+          </p>`;
+      }
     } else {
       modalheader.innerHTML = `
         <p class="text-center" style="color:darkred">
-          ${foundCoin ? "Lütfen geçerli bir değer giriniz" : "Girilen coin bulunamadı"}
-        </p>
-      `;
+          Lütfen geçerli bir değer giriniz
+        </p>`;
     }
   });
-
-  /* -------------------------------------------------------------------------- */
-  /*                                    SAVE                                    */
-  /* -------------------------------------------------------------------------- */
 
   saveBtn.addEventListener("click", () => {
     let localCoins = localStorage.getItem("coins");
@@ -158,9 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
       } catch (error) {}
     }
     showlocal(setLocalCoins);
-
   });
-  /* --------------------------------- CANVAS --------------------------------- */
 
   function showlocal(setLocalCoins) {
     const canvas = document.querySelector(".offcanvas-body ul.list-group");
@@ -175,21 +165,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
       canvas.appendChild(li);
     });
-
-    
   }
-});
-window.onload = function () {
-  const canvas = document.querySelector(".offcanvas-body ul.list-group");
-  const localCoins = localStorage.getItem("coins");
-  const parsedCoins = localCoins ? JSON.parse(localCoins) : [];
-  parsedCoins.reverse();
 
-  parsedCoins.forEach((element) => {
-    const { name } = element;
-    let li = document.createElement("li");
-    li.innerHTML = `
-      <li class="list-group-item" style="border:none;border-radius:10px; background-image: linear-gradient(94.3deg, rgba(26,33,64,1) 10.9%, rgba(81,84,115,1) 87.1%);">${name}</li>`;
-    canvas.appendChild(li);
-  });
-};
+  window.onload = function () {
+    const canvas = document.querySelector(".offcanvas-body ul.list-group");
+    const localCoins = localStorage.getItem("coins");
+    const parsedCoins = localCoins ? JSON.parse(localCoins) : [];
+    parsedCoins.reverse();
+
+    parsedCoins.forEach((element) => {
+      const { name } = element;
+      let li = document.createElement("li");
+      li.innerHTML = `
+        <li class="list-group-item" style="border:none;border-radius:10px; background-image: linear-gradient(94.3deg, rgba(26,33,64,1) 10.9%, rgba(81,84,115,1) 87.1%);">${name}</li>`;
+      canvas.appendChild(li);
+    });
+  };
+});
