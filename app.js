@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.querySelector(".offcanvas-body ul.list-group");
   const modal = document.querySelector('.modal.fade');
   const modalheader = document.querySelector(".modal-header");
-  const modalT=document.getElementById("staticBackdrop")
+  const myModal = new bootstrap.Modal('#staticBackdrop')
   const maxLocalCoins = 5;
 
   let getCoins = [];
@@ -80,6 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
   /* -------------------------------------------------------------------------- */
 
   const showModal = (coins) => {
+    
     coins.forEach((element) => {
       const { symbol, name, color, coinrankingUrl, iconUrl, change } = element;
 
@@ -146,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
       searchInput.value = "";
     } else {
       console.log("aaa");
-      modalT.hidden
+      myModal.hide();
       
       Swal.fire("SweetAlert2 is working!");
      
@@ -161,6 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
   /* -------------------------------------------------------------------------- */
 
   saveBtn.addEventListener("click", () => {
+    myModal.hide();
 
     let localCoins = localStorage.getItem("coins");
     modal.style.display="none"
