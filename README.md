@@ -39,5 +39,7 @@ It fetches data from https://api.coinranking.com/v2/coins for the latest cryptoc
 The app uses SweetAlert2 for enhanced alert messages.
 The layout and styling are accomplished using Bootstrap and custom CSS.
 
+<img src="./Animationcripto.gif"  width="90.5%" height="550" />
+
 
 visit my page  : https://cyripto-app-mfy.vercel.app/
